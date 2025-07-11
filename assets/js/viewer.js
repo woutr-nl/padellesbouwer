@@ -246,17 +246,69 @@ class PadelViewer {
     }
     
     drawBasket(item) {
-        const size = 12;
-        const color = (item && item.extra_data && item.extra_data.color) ? item.extra_data.color : '#ffa500';
-        this.ctx.fillStyle = color;
-        this.ctx.fillRect(-size, -size, size * 2, size * 2);
-        this.ctx.strokeStyle = '#333';
+        const size = 15; // 30x30 mand
+        this.ctx.save();
+        this.ctx.lineJoin = 'round';
+        this.ctx.lineCap = 'round';
+        // Mand raster (onder alles)
+        this.ctx.strokeStyle = '#222';
         this.ctx.lineWidth = 2;
+        this.ctx.beginPath();
+        this.ctx.moveTo(-size+3, -size+5); this.ctx.lineTo(-size+3, size-5); // links
+        this.ctx.moveTo(size-3, -size+5); this.ctx.lineTo(size-3, size-5);   // rechts
+        this.ctx.moveTo(-size+5, -size+3); this.ctx.lineTo(size-5, -size+3); // boven
+        this.ctx.moveTo(-size+5, size-3); this.ctx.lineTo(size-5, size-3);   // onder
         this.ctx.stroke();
-        this.ctx.fillStyle = '#fff';
-        this.ctx.font = '10px Arial';
-        this.ctx.textAlign = 'center';
-        this.ctx.fillText('⚽', 0, 2);
+        // Rasterlijnen verticaal
+        for(let i=1;i<4;i++){
+            let x = -size+5 + i*7;
+            this.ctx.beginPath();
+            this.ctx.moveTo(x, -size+5); this.ctx.lineTo(x, size-5);
+            this.ctx.stroke();
+        }
+        // Rasterlijnen horizontaal
+        for(let i=1;i<4;i++){
+            let y = -size+5 + i*7;
+            this.ctx.beginPath();
+            this.ctx.moveTo(-size+5, y); this.ctx.lineTo(size-5, y);
+            this.ctx.stroke();
+        }
+        // Ballen (kleiner, overlappend, 4x4 grid, meer naar binnen)
+        const ballRadius = 4;
+        const positions = [-7, -2.5, 2.5, 7];
+        for (let ix = 0; ix < positions.length; ix++) {
+            for (let iy = 0; iy < positions.length; iy++) {
+                const cx = positions[ix];
+                const cy = positions[iy];
+                this.ctx.beginPath();
+                this.ctx.arc(cx, cy, ballRadius, 0, 2 * Math.PI);
+                this.ctx.fillStyle = '#ffe600';
+                this.ctx.shadowColor = '#bbb';
+                this.ctx.shadowBlur = 1.5;
+                this.ctx.fill();
+                this.ctx.shadowBlur = 0;
+                // Tennisbal curve
+                this.ctx.strokeStyle = '#fff';
+                this.ctx.lineWidth = 0.9;
+                this.ctx.beginPath();
+                this.ctx.arc(cx-1, cy, ballRadius-1, 0.7, 2.4);
+                this.ctx.stroke();
+                this.ctx.beginPath();
+                this.ctx.arc(cx+1, cy, ballRadius-1, 3.2, 5.0);
+                this.ctx.stroke();
+            }
+        }
+        // Mand outline (bovenop alles)
+        this.ctx.strokeStyle = '#111';
+        this.ctx.lineWidth = 2;
+        this.ctx.beginPath();
+        this.ctx.moveTo(-size+4, -size+4);
+        this.ctx.lineTo(size-4, -size+4);
+        this.ctx.lineTo(size-4, size-4);
+        this.ctx.lineTo(-size+4, size-4);
+        this.ctx.closePath();
+        this.ctx.stroke();
+        this.ctx.restore();
     }
     
     drawCone(item) {
