@@ -1,0 +1,90 @@
+# PHP
+*.php~
+*.php.bak
+*.php.swp
+*.php.swo
+
+# Composer
+/vendor/
+composer.lock
+composer.phar
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.staging
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+error_log
+access_log
+
+# Cache
+cache/
+tmp/
+temp/
+
+# Database
+*.sql
+*.sqlite
+*.db
+
+# Uploads
+uploads/
+files/
+images/uploads/
+
+# Configuration files with sensitive data
+config/database.php
+config/config.php
+
+# Session files
+sessions/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Node modules (if using any frontend build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build directories
+dist/
+build/
+
+# Coverage reports
+coverage/
+*.lcov
+
+# PHPUnit
+.phpunit.result.cache 
